@@ -15,7 +15,7 @@ const defaultConfig: THeadlessConfig = {
     },
     voxelise: {
         constraintAxis: 'y',
-        voxeliser: 'bvh-ray',
+        voxeliser: 'ncrb',
         size: 80,
         useMultisampleColouring: false,
         voxelOverlapRule: 'average',
@@ -24,9 +24,9 @@ const defaultConfig: THeadlessConfig = {
     assign: {
         textureAtlas: 'vanilla',
         blockPalette: 'all-snapshot',
-        dithering: 'ordered',
+        dithering: 'off',
         colourSpace: ColourSpace.RGB,
-        fallable: 'replace-falling',
+        fallable: 'replace-fallable',
         resolution: 32,
         calculateLighting: false,
         lightThreshold: 0,
