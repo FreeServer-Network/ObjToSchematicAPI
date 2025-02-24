@@ -44,10 +44,36 @@ const defaultConfig: THeadlessConfig = {
 
 apiRoutes.post('/process', async (req, res) => {
     try {
-        // Merge provided config with defaults
+        // Deep merge provided config with defaults
         const config: THeadlessConfig = {
-            ...defaultConfig,
-            ...req.body
+            import: {
+                ...defaultConfig.import,
+                ...(req.body.import || {}),
+                // Ensure Vector3 instance for rotation
+                rotation: req.body.import?.rotation 
+                    ? new Vector3(
+                        req.body.import.rotation.x || 0,
+                        req.body.import.rotation.y || 0,
+                        req.body.import.rotation.z || 0
+                    )
+                    : defaultConfig.import.rotation
+            },
+            voxelise: {
+                ...defaultConfig.voxelise,
+                ...(req.body.voxelise || {})
+            },
+            assign: {
+                ...defaultConfig.assign,
+                ...(req.body.assign || {})
+            },
+            export: {
+                ...defaultConfig.export,
+                ...(req.body.export || {})
+            },
+            debug: {
+                ...defaultConfig.debug,
+                ...(req.body.debug || {})
+            }
         };
 
         // Run the headless processing
