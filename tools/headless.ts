@@ -1,10 +1,11 @@
 import { StatusHandler } from '../src/status';
 import { LOG_MAJOR, Logger, TIME_END, TIME_START } from '../src/util/log_util';
 import { WorkerClient } from '../src/worker_client';
-import { AssignParams, ExportParams, ImportParams, VoxeliseParams } from '../src/worker_types';
+import { AssignParams, ExportParams, ImportParams, SetMaterialsParams, VoxeliseParams } from '../src/worker_types';
 
 export type THeadlessConfig = {
     import: ImportParams.Input,
+    // material: SetMaterialsParams.Input,
     voxelise: VoxeliseParams.Input,
     assign: AssignParams.Input,
     export: ExportParams.Input,
@@ -34,6 +35,13 @@ export function runHeadless(headlessConfig: THeadlessConfig) {
         StatusHandler.Get.dump().clear();
         TIME_END('[TIMER] Importer');
     }
+    // {
+    //     // set materials
+    //     TIME_START('[TIMER] Material Setter');
+    //     LOG_MAJOR('\nSetting materials...');
+    //     worker.setMaterials(headlessConfig.material);
+    //     StatusHandler.Get.dump().clear();
+    // }
     {
         TIME_START('[TIMER] Voxeliser');
         LOG_MAJOR('\nVoxelising...');
