@@ -7,6 +7,9 @@ export const headlessConfig: THeadlessConfig = {
         filepath: '/Users/lucasdower/ObjToSchematic/res/samples/skull.obj', // Must be an absolute path
         rotation: new Vector3(0, 0, 0),
     },
+    material: {
+        // material here
+    },
     voxelise: {
         constraintAxis: 'y',
         voxeliser: 'bvh-ray',
