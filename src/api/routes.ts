@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import path from 'path';
 
 import { ColourSpace } from '../../src/util';
 import { Vector3 } from '../../src/vector';
@@ -45,11 +46,19 @@ const defaultConfig: THeadlessConfig = {
 
 apiRoutes.post('/process', async (req, res) => {
     try {
+        // Sanitize and validate input
+        const sanitizedPath = req.body.import?.filepath?.replace(/[<>:"|?*]/g, '_');
+        if (sanitizedPath && !path.isAbsolute(sanitizedPath)) {
+            throw new Error('Filepath must be absolute');
+        }
+
         // Deep merge provided config with defaults
         const config: THeadlessConfig = {
             import: {
                 ...defaultConfig.import,
                 ...(req.body.import || {}),
+                // Sanitize filepath if provided
+                ...(sanitizedPath && { filepath: sanitizedPath }),
                 // Ensure Vector3 instance for rotation
                 rotation: req.body.import?.rotation ? 
                     new Vector3(
