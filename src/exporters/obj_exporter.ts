@@ -5,9 +5,10 @@ import { BlockMesh } from '../block_mesh';
 import { TBlockMeshBufferDescription } from '../buffer';
 import { ASSERT } from '../util/error_util';
 import { IExporter } from './base_exporter';
+import { FileFilter } from '../types/electron';
 
 export class ObjExporter extends IExporter {
-    public override getFormatFilter(): Electron.FileFilter {
+    public override getFormatFilter(): FileFilter {
         return {
             name: 'Wavefront Obj',
             extensions: ['obj'],
