@@ -46,10 +46,25 @@ const defaultConfig: THeadlessConfig = {
 
 apiRoutes.post('/process', async (req, res) => {
     try {
-        // Sanitize and validate input
-        const sanitizedPath = req.body.import?.filepath?.replace(/[<>:"|?*]/g, '_');
-        if (sanitizedPath && !path.isAbsolute(sanitizedPath)) {
-            throw new Error('Filepath must be absolute');
+        const filepath = req.body.import?.filepath;
+    
+        let sanitizedPath;
+        if (filepath && /^[a-zA-Z]:/.test(filepath)) {
+            const driveLetter = filepath.slice(0, 2);
+            const pathPart = filepath.slice(2); 
+            sanitizedPath = driveLetter + pathPart.replace(/[<>"|?*]/g, '_');
+        } else {
+            sanitizedPath = filepath?.replace(/[<>:"|?*]/g, '_');
+        }
+    
+    
+        if (sanitizedPath) {
+            const isWinAbsolute = /^[a-zA-Z]:[\\\/]/.test(sanitizedPath);
+            const isUnixAbsolute = path.isAbsolute(sanitizedPath);
+        
+            if (!isWinAbsolute && !isUnixAbsolute) {
+                throw new Error('Filepath must be absolute');
+            }
         }
 
         // Deep merge provided config with defaults
