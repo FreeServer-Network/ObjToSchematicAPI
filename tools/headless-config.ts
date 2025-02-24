@@ -8,7 +8,22 @@ export const headlessConfig: THeadlessConfig = {
         rotation: new Vector3(0, 0, 0),
     },
     material: {
-        // material here
+        materials: new Map([
+            ['default', {
+                type: MaterialType.solid,
+                colour: { r: 1, g: 1, b: 1, a: 1 },
+                canBeTextured: false,
+                needsAttention: false
+            }],
+            ['texture-example', {
+                type: MaterialType.textured,
+                path: 'C:\\absolute\\path\\to\\texture.png',
+                interpolation: 'nearest',
+                extension: 'clamp',
+                transparency: { type: 'None' },
+                needsAttention: false
+            }]
+        ])
     },
     voxelise: {
         constraintAxis: 'y',
