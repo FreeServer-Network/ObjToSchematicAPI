@@ -1,7 +1,7 @@
 import { StatusHandler } from '../src/status';
 import { LOG_MAJOR, Logger, TIME_END, TIME_START } from '../src/util/log_util';
 import { WorkerClient } from '../src/worker_client';
-import { AssignParams, ExportParams, ImportParams, SetMaterialsParams, VoxeliseParams } from '../src/worker_types';
+import { AssignParams, ExportParams, ImportParams, VoxeliseParams } from '../src/worker_types';
 
 export type THeadlessConfig = {
     import: ImportParams.Input,

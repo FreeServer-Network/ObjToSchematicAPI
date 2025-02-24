@@ -1,8 +1,9 @@
-import express from 'express';
 import { json } from 'body-parser';
-import { apiRoutes } from './routes';
+import express from 'express';
+
+import { LOG_MAJOR, Logger } from '../util/log_util';
 import { AppPaths, PathUtil } from '../util/path_util';
-import { Logger } from '../util/log_util';
+import { apiRoutes } from './routes';
 
 const app = express();
 const port = process.env.PORT || 3090;
@@ -20,6 +21,6 @@ app.use('/api', apiRoutes);
 
 export function startServer() {
     app.listen(port, () => {
-        console.log(`Server is running on port ${port}`);
+        LOG_MAJOR(`Server is running on port ${port}`);
     });
 }

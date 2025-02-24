@@ -19,3 +19,4 @@ notes.txt
 *.DS_Store
 .dependency-cruiser.js
 dependencygraph.svg
+.aider*
