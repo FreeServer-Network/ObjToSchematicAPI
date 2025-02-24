@@ -1,30 +1,44 @@
 import { Router } from 'express';
 import { runHeadless, THeadlessConfig } from '../../tools/headless';
+import { Vector3 } from '../../src/vector';
+import { ColourSpace } from '../../src/util';
 
 export const apiRoutes = Router();
 
 // Default configuration - you may want to adjust these values
 const defaultConfig: THeadlessConfig = {
     import: {
-        file: './input/model.obj',
-        scale: 1
+        filepath: './input/model.obj', // Must be an absolute path
+        rotation: new Vector3(0, 0, 0),
     },
     voxelise: {
-        size: 128,
-        enableAmbientOcclusion: true
+        constraintAxis: 'y',
+        voxeliser: 'bvh-ray',
+        size: 80,
+        useMultisampleColouring: false,
+        voxelOverlapRule: 'average',
+        enableAmbientOcclusion: false,
     },
     assign: {
-        atlas: 'default',
-        palette: 'default'
+        textureAtlas: 'vanilla',
+        blockPalette: 'all-snapshot',
+        dithering: 'ordered',
+        colourSpace: ColourSpace.RGB,
+        fallable: 'replace-falling',
+        resolution: 32,
+        calculateLighting: false,
+        lightThreshold: 0,
+        contextualAveraging: true,
+        errorWeight: 0.0,
     },
     export: {
-        format: 'obj',
-        outputPath: './output'
+        filepath: './output/model', // Must be an absolute path
+        exporter: 'schem',
     },
     debug: {
         showLogs: true,
         showWarnings: true,
-        showTimings: true
+        showTimings: true,
     }
 };
 
