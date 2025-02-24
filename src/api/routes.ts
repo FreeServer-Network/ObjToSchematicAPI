@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { runHeadless, THeadlessConfig } from '../../tools/headless';
-import { Vector3 } from '../../src/vector';
+
 import { ColourSpace } from '../../src/util';
+import { Vector3 } from '../../src/vector';
+import { runHeadless, THeadlessConfig } from '../../tools/headless';
 
 export const apiRoutes = Router();
 
@@ -39,7 +40,7 @@ const defaultConfig: THeadlessConfig = {
         showLogs: true,
         showWarnings: true,
         showTimings: true,
-    }
+    },
 };
 
 apiRoutes.post('/process', async (req, res) => {
@@ -50,30 +51,30 @@ apiRoutes.post('/process', async (req, res) => {
                 ...defaultConfig.import,
                 ...(req.body.import || {}),
                 // Ensure Vector3 instance for rotation
-                rotation: req.body.import?.rotation 
-                    ? new Vector3(
+                rotation: req.body.import?.rotation ? 
+                    new Vector3(
                         req.body.import.rotation.x || 0,
                         req.body.import.rotation.y || 0,
-                        req.body.import.rotation.z || 0
-                    )
-                    : defaultConfig.import.rotation
+                        req.body.import.rotation.z || 0,
+                    ) :
+                    defaultConfig.import.rotation,
             },
             voxelise: {
                 ...defaultConfig.voxelise,
-                ...(req.body.voxelise || {})
+                ...(req.body.voxelise || {}),
             },
             assign: {
                 ...defaultConfig.assign,
-                ...(req.body.assign || {})
+                ...(req.body.assign || {}),
             },
             export: {
                 ...defaultConfig.export,
-                ...(req.body.export || {})
+                ...(req.body.export || {}),
             },
             debug: {
                 ...defaultConfig.debug,
-                ...(req.body.debug || {})
-            }
+                ...(req.body.debug || {}),
+            },
         };
 
         // Run the headless processing
@@ -81,12 +82,12 @@ apiRoutes.post('/process', async (req, res) => {
 
         res.json({
             success: true,
-            message: 'Processing completed successfully'
+            message: 'Processing completed successfully',
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: error instanceof Error ? error.message : 'An unknown error occurred'
+            message: error instanceof Error ? error.message : 'An unknown error occurred',
         });
     }
 });
