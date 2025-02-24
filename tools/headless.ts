@@ -16,7 +16,7 @@ export type THeadlessConfig = {
     }
 }
 
-export function runHeadless(headlessConfig: THeadlessConfig) {
+export async function runHeadless(headlessConfig: THeadlessConfig) {
     if (headlessConfig.debug.showLogs) {
         Logger.Get.enableLOGMAJOR();
     }
