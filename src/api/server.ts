@@ -5,7 +5,7 @@ import { AppPaths, PathUtil } from '../util/path_util';
 import { Logger } from '../util/log_util';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3090;
 
 // Initialize paths and logging
 AppPaths.Get.setBaseDir(PathUtil.join(__dirname, '../..'));
